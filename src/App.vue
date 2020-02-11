@@ -1,19 +1,24 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <ProductCard v-for="product in allNewProducts.groups" :key="product.id" :product="product" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import productsObj from './products-resource';
+import ProductCard from './components/ProductCard';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    ProductCard
+  },
+  data() {
+    return {
+      allNewProducts: productsObj
+    };
   }
-}
+};
 </script>
 
 <style>

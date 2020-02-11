@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <ProductCard v-for="product in allNewProducts.groups" :key="product.id" :product="product" />
+    <div class="product-card-container">
+      <ProductCard v-for="product in allNewProducts.groups" :key="product.id" :product="product" />
+    </div>
   </div>
 </template>
 
@@ -29,5 +31,12 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+@media (min-width: 480px) {
+  .product-card-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 </style>

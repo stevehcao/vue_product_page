@@ -1,17 +1,97 @@
 <template>
-  <div class="carousel-container">
-    I'm a carousel
+  <div class="outer-carousel-container">
+    <!-- button -->
+    <!-- might have to have another wrapper for modal content!!! -->
+    <div class="inner-carousel-container">
+      <button class="carousel-button left">
+        <img src="../assets/left-arrow.png" alt="left arrow" />
+      </button>
+      <div class="carousel-slider-container">
+        <!-- in ul loop through images and create the li for each -->
+        <ul class="carousel-slider">
+          <li class="carousel-slide" v-for="(image, idx) in productImages" :key="idx">
+            <img class="carousel-img" :src="image.href" :alt="image.alt" />
+          </li>
+        </ul>
+      </div>
+      <button class="carousel-button right">
+        <img src="../assets/right-arrow.png" alt="right arrow" />
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Carousel'
-}
+  name: 'Carousel',
+  props: {
+    productImages: Array
+  }
+};
 </script>
 
 <style scoped>
-  .carousel-container {
-    background-color: lightblue;
-  }
+.outer-carousel-container {
+  background-color: lightblue;
+  /* if absolute can take it out of frame BUT will mess everything else up */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.carousel-button {
+  position: absolute;
+  /* putting the top of the bottom in the middle */
+  top: 50%;
+  /* the transform and the translate the middle of the button */
+  transform: translateY(-50%);
+  width: 12px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.carousel-button.left {
+  left: -40px;
+}
+
+.carousel-button.right {
+  right: 40px;
+}
+
+.carousel-button img {
+  width: 12px;
+}
+
+.carousel-slider-container {
+  background-color: lightgreen;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-slider {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  position: relative;
+  height: 100%;
+  transition: transform 250ms ease-in;
+}
+
+.carousel-slider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.inner-carousel-container {
+  position: relative;
+  height: 600px;
+  width: 80%;
+  margin: 0 auto;
+}
 </style>

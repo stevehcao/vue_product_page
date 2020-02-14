@@ -3,14 +3,13 @@
     <!-- button -->
     <!-- might have to have another wrapper for modal content!!! -->
     <div class="inner-carousel-container">
-      <button class="carousel-button left">
+      <button class="carousel-button left" @click="prevButton">
         <img src="../assets/left-arrow.png" alt="left arrow" />
       </button>
       <div class="carousel-slider-container">
-        <!-- in ul loop through images and create the li for each -->
         <ul class="carousel-slider">
-          <li class="carousel-slide" v-for="(image, idx) in productImages" :key="idx">
-            <img class="carousel-img" :src="image.href" :alt="image.alt" />
+          <li class="carousel-slide">
+            <img :src="currentElement.href" :alt="currentElement.alt" />
           </li>
         </ul>
       </div>
@@ -19,7 +18,13 @@
       </button>
 
       <div class="carousel-nav">
-        <button v-for="(slide, idx) in productImages" :key="idx" class="carousel-indicator"></button>
+        <button
+          v-for="(slide, idx) in productImages"
+          :key="idx"
+          class="carousel-indicator"
+          :class="{'current-slide': currentElIndex === idx}"
+          @click="showSlide(idx)"
+        ></button>
       </div>
     </div>
   </div>
@@ -32,21 +37,40 @@ export default {
   props: {
     productImages: Array
   },
+  data() {
+    return {
+      currentElIndex: 0
+    };
+  },
+  computed: {
+    currentElement() {
+      return this.productImages[this.currentElIndex];
+    }
+  },
   methods: {
-    nextButton(evt) {
-      console.log('evt: ', evt);
-      // move to next slide
-      // add slide index?
+    nextButton() {
+      if (this.currentElIndex + 1 === this.productImages.length) {
+        this.currentElIndex = 0;
+      } else {
+        this.currentElIndex++;
+      }
     },
     prevButton() {
-
+      if (this.currentElIndex - 1 < 0) {
+        this.currentElIndex = this.productImages.length - 1;
+      } else {
+        this.currentElIndex--;
+      }
+    },
+    showSlide(indicatorIndex) {
+      // when clicked show the slide with passed in idx
+      this.currentElIndex = indicatorIndex;
     }
   }
 };
 
 // const outerContainer = document.querySelector('.outer-carousel-container');
 // console.log('outerContainer: ', outerContainer);
-console.log("hello");
 // window.onclick = function(event) {
 //   console.log('outerContainer: ', this);
 //   console.log('event.target: ', event.target);

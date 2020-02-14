@@ -2,7 +2,7 @@
   <!-- @click on the product card to display carousel-->
   <!-- .self on the product-card could prevent bubbling -->
   <div class="product-card" @click.self="toggleCarousel">
-    <Carousel v-if="displayCarousel" :productImages="product.images"/>
+    <Carousel v-if="displayCarousel && product.images" :productImages="product.images"/>
     <div>{{ product.name }}</div>
     <img :src="product.hero.href" :alt="product.name" class="product-hero-img" />
     <div

@@ -1,6 +1,7 @@
 <template>
   <!-- @click on the product card to display carousel-->
-  <div class="product-card" @click="toggleCarousel">
+  <!-- .self on the product-card could prevent bubbling -->
+  <div class="product-card" @click.self="toggleCarousel">
     <Carousel v-if="displayCarousel" :productImages="product.images"/>
     <div>{{ product.name }}</div>
     <img :src="product.hero.href" :alt="product.name" class="product-hero-img" />
@@ -23,8 +24,9 @@ export default {
     return { displayCarousel: false };
   },
   methods: {
-    toggleCarousel() {
+    toggleCarousel(evt) {
       this.displayCarousel = !this.displayCarousel;
+      console.log("toggle event on product card", evt.target)
     }
   }
 };

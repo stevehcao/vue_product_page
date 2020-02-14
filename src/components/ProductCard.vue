@@ -1,8 +1,10 @@
 <template>
   <!-- @click on the product card to display carousel-->
   <!-- .self on the product-card could prevent bubbling -->
-  <div class="product-card" @click.self="toggleCarousel">
-    <Carousel v-if="displayCarousel && product.images" :productImages="product.images"/>
+  <div class="product-card" @click="toggleCarousel">
+    <transition name="fade">
+      <Carousel v-if="displayCarousel && product.images" :productImages="product.images" />
+    </transition>
     <div>{{ product.name }}</div>
     <img :src="product.hero.href" :alt="product.name" class="product-hero-img" />
     <div
@@ -26,7 +28,7 @@ export default {
   methods: {
     toggleCarousel(evt) {
       this.displayCarousel = !this.displayCarousel;
-      console.log("toggle event on product card", evt.target)
+      console.log('toggle event on product card', evt.target);
     }
   }
 };
@@ -54,5 +56,12 @@ img {
   .product-card {
     width: 26%;
   }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

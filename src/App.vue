@@ -1,7 +1,15 @@
 <template>
   <div id="app">
     <div class="product-card-container">
-      <ProductCard v-for="product in allNewProducts.groups" :key="product.id" :product="product" />
+      <ProductCard
+        v-for="product in allNewProducts.groups"
+        :key="product.id"
+        :product="product"
+        @renderCarousel="updateProductImages($event)"
+      />
+      <transition name="fade">
+        <Carousel v-if="displayCarousel" :productImages="productImages" @closeCarousel="closeCarousel"/>
+      </transition>
     </div>
   </div>
 </template>
@@ -9,16 +17,32 @@
 <script>
 import productsObj from './products-resource';
 import ProductCard from './components/ProductCard';
+import Carousel from './components/Carousel';
 
 export default {
   name: 'App',
   components: {
-    ProductCard
+    ProductCard,
+    Carousel
   },
   data() {
     return {
-      allNewProducts: productsObj
+      allNewProducts: productsObj,
+      displayCarousel: false,
+      productImages: []
+      // have carousel data here that can be set by the child
+      // pass this new data into carousel component
     };
+  },
+  // have method that would listen for the child click
+  methods: {
+    updateProductImages(updatedProductImages) {
+      this.productImages = updatedProductImages;
+      this.displayCarousel = !this.displayCarousel;
+    },
+    closeCarousel() {
+      this.displayCarousel = false;
+    }
   }
 };
 </script>
@@ -39,5 +63,12 @@ export default {
     display: flex;
     flex-wrap: wrap;
   }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

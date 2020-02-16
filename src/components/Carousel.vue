@@ -1,7 +1,6 @@
 <template>
-  <div class="outer-carousel-container">
-    <!-- button -->
-    <!-- might have to have another wrapper for modal content!!! -->
+<!-- listen to click on outer-carousel only .self -->
+  <div class="outer-carousel-container" @click.self="closeCarousel">
     <div class="inner-carousel-container">
       <button class="carousel-button left" @click="prevButton">
         <img src="../assets/left-arrow.png" alt="left arrow" />
@@ -65,6 +64,9 @@ export default {
     showSlide(indicatorIndex) {
       // when clicked show the slide with passed in idx
       this.currentElIndex = indicatorIndex;
+    },
+    closeCarousel() {
+      this.$emit("closeCarousel");
     }
   }
 };
@@ -82,7 +84,7 @@ export default {
 
 <style scoped>
 .outer-carousel-container {
-  background-color: lightblue;
+  background-color: salmon;
   /* if absolute can take it out of frame BUT will mess everything else up */
   position: absolute;
   width: 100%;
@@ -143,6 +145,7 @@ export default {
   height: 600px;
   width: 80%;
   margin: 0 auto;
+  z-index: 9001;
 }
 
 .carousel-nav {

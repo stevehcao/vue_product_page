@@ -30,8 +30,6 @@ export default {
       allNewProducts: productsObj,
       displayCarousel: false,
       productImages: []
-      // have carousel data here that can be set by the child
-      // pass this new data into carousel component
     };
   },
   // have method that would listen for the child click

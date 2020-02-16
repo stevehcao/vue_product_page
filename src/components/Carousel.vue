@@ -71,21 +71,11 @@ export default {
   }
 };
 
-// const outerContainer = document.querySelector('.outer-carousel-container');
-// console.log('outerContainer: ', outerContainer);
-// window.onclick = function(event) {
-//   console.log('outerContainer: ', this);
-//   console.log('event.target: ', event.target);
-//   if (event.target == outerContainer) {
-//     outerContainer.style.display = 'none';
-//   }
-// };
 </script>
 
 <style scoped>
 .outer-carousel-container {
   background-color: salmon;
-  /* if absolute can take it out of frame BUT will mess everything else up */
   position: absolute;
   width: 100%;
   height: 100%;

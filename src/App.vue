@@ -46,6 +46,11 @@ export default {
 </script>
 
 <style>
+/* for google chrome */
+body {
+  padding: 0;
+  margin: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -60,6 +65,7 @@ export default {
   .product-card-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
   }
 }
 

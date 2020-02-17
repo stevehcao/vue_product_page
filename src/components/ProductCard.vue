@@ -40,6 +40,7 @@ img {
 }
 
 .product-card {
+  cursor: pointer;
   margin: 1rem;
   position: relative;
   /* possible center it with flexbox */

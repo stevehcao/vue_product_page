@@ -1,6 +1,8 @@
 <template>
-<!-- listen to click on outer-carousel only .self -->
-  <div class="outer-carousel-container" @click.self="closeCarousel">
+  <!-- listen to click on outer-carousel only .self -->
+  <div>
+    <div class="module-overlay" @click.self="closeCarousel"></div>
+    <!-- pull out inner container -->
     <div class="inner-carousel-container">
       <button class="carousel-button left" @click="prevButton">
         <img src="../assets/left-arrow.png" alt="left arrow" />
@@ -66,16 +68,16 @@ export default {
       this.currentElIndex = indicatorIndex;
     },
     closeCarousel() {
-      this.$emit("closeCarousel");
+      this.$emit('closeCarousel');
     }
   }
 };
-
 </script>
 
 <style scoped>
-.outer-carousel-container {
+.module-overlay {
   background-color: salmon;
+  /* opacity: 0.5; */
   position: absolute;
   width: 100%;
   height: 100%;
@@ -131,9 +133,11 @@ export default {
 }
 
 .inner-carousel-container {
-  position: relative;
+  position: absolute;
+  top: 60px;
+  left: calc(50% - 200px);
   height: 600px;
-  width: 80%;
+  width: 400px;
   margin: 0 auto;
   z-index: 9001;
 }

@@ -5,10 +5,15 @@
         v-for="product in allNewProducts.groups"
         :key="product.id"
         :product="product"
-        @renderCarousel="updateProductImages($event)"
+        :id="product.id"
+        @renderCarousel="updateProductImages($event, product.id)"
       />
       <transition name="fade">
-        <Carousel v-if="displayCarousel" :productImages="productImages" @closeCarousel="closeCarousel"/>
+        <Carousel
+          v-if="displayCarousel"
+          :productImages="productImages"
+          @closeCarousel="closeCarousel"
+        />
       </transition>
     </div>
   </div>
@@ -29,16 +34,20 @@ export default {
     return {
       allNewProducts: productsObj,
       displayCarousel: false,
-      productImages: []
+      productImages: [],
+      productId: ''
     };
   },
-  // have method that would listen for the child click
   methods: {
-    updateProductImages(updatedProductImages) {
+    updateProductImages(updatedProductImages, productId) {
       this.productImages = updatedProductImages;
       this.displayCarousel = !this.displayCarousel;
+      this.productId = productId;
     },
     closeCarousel() {
+      let productCardElement = document.querySelector(`#${this.productId}`);
+      let productCardPosition = productCardElement.getBoundingClientRect().top;
+      window.scrollTo(0, productCardPosition);
       this.displayCarousel = false;
     }
   }
@@ -46,18 +55,21 @@ export default {
 </script>
 
 <style>
-/* for google chrome */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   padding: 0;
   margin: 0;
 }
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
   position: relative;
 }
 
@@ -69,10 +81,12 @@ body {
   }
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
 }
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 </style>

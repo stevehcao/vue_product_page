@@ -1,24 +1,25 @@
 <template>
-  <!-- listen to click on outer-carousel only .self -->
-  <div>
-    <div class="module-overlay" @click.self="closeCarousel"></div>
+  <div class="module-overlay-container">
+    <div class="module-overlay" @click="closeCarousel"></div>
     <!-- pull out inner container -->
     <div class="inner-carousel-container">
-      <button class="carousel-button left" @click="prevButton">
+      <button class="close-button" aria-label="close button" @click="closeCarousel">&#215;</button>
+      <button class="carousel-button left" aria-label="previous slide" @click="prevButton">
         <img src="../assets/left-arrow.png" alt="left arrow" />
       </button>
       <div class="carousel-slider-container">
         <ul class="carousel-slider">
           <li class="carousel-slide">
-            <img :src="currentElement.href" :alt="currentElement.alt" />
+            <img class="carousel-slide-img" :src="currentElement.href" :alt="currentElement.alt" />
           </li>
         </ul>
       </div>
-      <button class="carousel-button right" @click="nextButton">
+      <button class="carousel-button right" aria-label="next slide" @click="nextButton">
         <img src="../assets/right-arrow.png" alt="right arrow" />
       </button>
 
       <div class="carousel-nav">
+        <div class="carousel-nav-overlay"></div>
         <button
           v-for="(slide, idx) in productImages"
           :key="idx"
@@ -68,7 +69,7 @@ export default {
       this.currentElIndex = indicatorIndex;
     },
     closeCarousel() {
-      this.$emit('closeCarousel');
+      this.$emit('closeCarousel', this.currentElement);
     }
   }
 };
@@ -76,13 +77,23 @@ export default {
 
 <style scoped>
 .module-overlay {
-  background-color: salmon;
-  /* opacity: 0.5; */
+  background-color: #000000;
+  opacity: 0.65;
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
+}
+
+.carousel-nav-overlay {
+  z-index: 0;
+  background-color: #000000;
+  opacity: 0.35;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: -2px;
 }
 
 .carousel-button {
@@ -91,18 +102,22 @@ export default {
   top: 50%;
   /* the transform and the translate the middle of the button */
   transform: translateY(-50%);
-  width: 12px;
+  z-index: 2;
+  width: 27px;
   border: 0;
-  background: transparent;
+  background: #ffffff;
+  border-radius: 50%;
+  text-align: center;
+  opacity: 0.7;
   cursor: pointer;
 }
 
 .carousel-button.left {
-  left: -40px;
+  left: 9px;
 }
 
 .carousel-button.right {
-  right: 40px;
+  right: 9px;
 }
 
 .carousel-button img {
@@ -110,7 +125,6 @@ export default {
 }
 
 .carousel-slider-container {
-  background-color: lightgreen;
   height: 100%;
   position: relative;
   overflow: hidden;
@@ -134,18 +148,22 @@ export default {
 
 .inner-carousel-container {
   position: absolute;
-  top: 60px;
-  left: calc(50% - 200px);
-  height: 600px;
-  width: 400px;
+  top: 70px;
+  left: 8px;
+  height: 363px;
+  width: 95%;
   margin: 0 auto;
-  z-index: 9001;
+  z-index: 1;
+  margin-top: 15%;
 }
 
 .carousel-nav {
   display: flex;
   justify-content: center;
   padding: 10px 0;
+  position: absolute;
+  bottom: 2px;
+  width: 100%;
 }
 
 .carousel-indicator {
@@ -153,16 +171,64 @@ export default {
   border-radius: 50%;
   width: 15px;
   height: 15px;
-  background: rgba(0, 0, 0, 0.3);
+  background: transparent;
   margin: 0 12px;
   cursor: pointer;
+  z-index: 3;
+  border: 1px solid #ffffff;
 }
 
 .carousel-indicator.current-slide {
-  background: rgba(0, 0, 0, 0.75);
+  background: #ffffff;
 }
 
 .is-hidden {
   display: none;
+}
+
+.close-button {
+  position: absolute;
+  /* putting the top of the bottom in the middle */
+  right: 0;
+  top: 0;
+  z-index: 2;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-size: 30px;
+  font-weight: bold;
+  color: rgb(105, 105, 105);
+}
+
+@media (min-width: 480px) {
+  .inner-carousel-container {
+    top: 140px;
+    left: calc(50% - 186px);
+  }
+}
+
+@media (min-width: 768px) {
+  .inner-carousel-container {
+    position: absolute;
+    top: 140px;
+    height: 363px;
+    width: 363px;
+    margin: 0 auto;
+    z-index: 1;
+    margin-top: 15%;
+  }
+}
+
+.carousel-slide-img {
+  transition: opacity 0.5s;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

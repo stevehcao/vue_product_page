@@ -1,6 +1,16 @@
 <template>
-  <div id="app">
-    <div class="product-card-container">
+  <main id="app">
+    <header>
+      <!-- a tag with image -->
+      <a
+        href="https://www.westelm.com/?cm_type=gnav&cm_sp=GlobalLinks-_-Topnav-_-WestElmLogo"
+        alt="west elm"
+        class="header-anchor"
+      >
+        <img class="header-img" src="https://logos-download.com/wp-content/uploads/2016/06/West_Elm_logo.png" alt="west elm" />
+      </a>
+    </header>
+    <section class="product-card-container">
       <ProductCard
         v-for="product in allNewProducts.groups"
         :key="product.id"
@@ -15,8 +25,8 @@
           @closeCarousel="closeCarousel"
         />
       </transition>
-    </div>
-  </div>
+    </section>
+  </main>
 </template>
 
 <script>
@@ -59,6 +69,10 @@ html {
   scroll-behavior: smooth;
 }
 
+header {
+  padding: 25px 0;
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -73,11 +87,19 @@ body {
   position: relative;
 }
 
+.header-img {
+  width: 65%;
+}
+
 @media (min-width: 480px) {
   .product-card-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+  }
+
+  .header-img {
+    width: 30%;
   }
 }
 

@@ -200,10 +200,19 @@ export default {
   color: rgb(105, 105, 105);
 }
 
+@media (min-width: 400px) {
+  .inner-carousel-container {
+    top: 140px;
+    left: 23px;
+    width: 89%;
+  }
+}
+
 @media (min-width: 480px) {
   .inner-carousel-container {
     top: 140px;
     left: calc(50% - 186px);
+    width: 72%;
   }
 }
 

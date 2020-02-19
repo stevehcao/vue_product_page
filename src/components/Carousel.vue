@@ -33,7 +33,6 @@
 </template>
 
 <script>
-// can write script to toggle display none on click on the outer-carousel
 export default {
   name: 'Carousel',
   props: {
@@ -65,7 +64,6 @@ export default {
       }
     },
     showSlide(indicatorIndex) {
-      // when clicked show the slide with passed in idx
       this.currentElIndex = indicatorIndex;
     },
     closeCarousel() {
